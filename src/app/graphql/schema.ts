@@ -7,7 +7,12 @@ export const schema = buildSchema(`
   }
 
   type Mutation {
-    queryPixKey(key: String!): Boolean
+    queryPixKey(key: String!): QueryPixKeyResponse
+  }
+
+  type QueryPixKeyResponse {
+    success: Boolean!
+    message: String!
   }
 `);
 

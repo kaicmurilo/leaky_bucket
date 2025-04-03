@@ -5,7 +5,13 @@ export const PixResolver = {
     const userId = context?.state?.user?.id;
     if (!userId) throw new Error("Unauthorized");
 
-    const success = Math.random() > 0.2;
-    return tenantStore.consumeToken(userId, success);
+    const success = simularConsultaPix(key);
+    const result = tenantStore.consumeToken(userId, success);
+
+    return result;
   },
 };
+
+function simularConsultaPix(key: string): boolean {
+  return Math.random() > 0.2;
+}

@@ -34,16 +34,26 @@ class TenantStore {
     return this.refill(bucket);
   }
 
-  consumeToken(userId: string, success: boolean): boolean {
+  consumeToken(userId: string, success: boolean) {
     const bucket = this.getOrCreateBucket(userId);
 
-    if (bucket.tokens <= 0) return false;
+    if (bucket.tokens <= 0) {
+      return {
+        success: false,
+        message: "Limite de requisições foi atingido",
+      };
+    }
 
     if (!success) {
       bucket.tokens -= 1;
     }
 
-    return true;
+    return {
+      success,
+      message: success
+        ? "Chave Pix consultada com sucesso"
+        : "Erro ao consultar chave Pix",
+    };
   }
 
   getTokens(userId: string): number {
